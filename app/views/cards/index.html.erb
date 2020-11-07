@@ -1,9 +1,15 @@
 <h1>Page for ThanksCards</h1>
 <p>Take it easy</p>
    <% if user_signed_in? %>
-        <li><%= link_to current_user.nickname, "#", class: "user-nickname"%></li> 
+        <li><%= link_to current_user.nickname, user_path(current_user), class: "user-nickname"%></li> 
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout"%> </li>
       <% else %>
         <li><%= link_to 'ログイン', new_user_session_path, class: "login" %></li>
         <li><%= link_to '新規登録',new_user_registration_path , class: "sign-up" %></li>
       <% end %>
+
+  <% @users.each do |user| %>
+    <%= link_to user_path(user) do%>
+      <%= user.nickname%>
+    <% end %>
+  <% end %>
