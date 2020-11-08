@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "cards#index" 
   
-  resources :users, only: :show 
+  resources :users
 
-  resources :rooms, only: [:create,:show]
+  resources :rooms
   resources :cards, only: [:index,:create]
   
 end
