@@ -1,17 +1,6 @@
 <h1>ユーザー詳細</h1>
 
 <h2><%= @user.nickname %></h2>
-  <%=form_with model: @room, local: true do |f|%>
-      
-    <select name="room[user_ids][]">
-      <option value="">ありがとうカードを贈ろう</option>
-      <% User.where.not(id: current_user.id).each do |user|%>
-      <option value=<%= user.id%>><%= user.nickname%></option>
-      <% end %>
-    </select>
-    <input name="room[user_ids][]" type="hidden" value=<%= current_user.id%>>
-    <%= f.text_field :name, placeholder: 'あだ名で書いてみよう！！',value: current_user.nickname,type: "hidden"%>
-    <%= f.submit value="THANKS" %>
-  <% end %>
+  <%= link_to "Send a thank you card" %>
 
 <%= link_to "メインページ", root_path%>
