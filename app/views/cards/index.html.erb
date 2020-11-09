@@ -1,7 +1,6 @@
 <h1>Page for ThanksCards</h1>
 <p>Take it easy</p>
    <% if user_signed_in? %>
-        <li><%= link_to "Send a thank you card"%></li>
         <li><%= link_to current_user.nickname, user_path(current_user), class: "user-nickname"%></li> 
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout"%> </li>
       <% else %>
@@ -12,7 +11,7 @@
 <%# ユーザーログアウト時の条件分岐 %>
 <% if user_signed_in?%>   
 
-
+  <%# ユーザー名と詳細ページへの遷移 %>
   <% @users.each do |user| %>
     <%= link_to user_path(user) do%>
       <%= user.nickname%>
@@ -30,11 +29,15 @@
     </select>
     <input name="room[user_ids][]" type="hidden" value=<%= current_user.id%>>
 
-    <%= f.text_field :name, placeholder: 'あだ名で書いてみよう！！',value: "message",type: "hidden" %>
+    <%= f.text_field :name, placeholder: 'あだ名で書いてみよう！！',value: current_user.nickname,type: "hidden" %>
     <%= f.submit value="Selected" %>
   <% end %>
 <% end %>
 
- 
+  <%# ありがとうカードの表示 %>
+  <% @cards.each do |card|%>
+    <p>To:<%= card.receive_user.nickname%> </p>
+    <p><%= card.content%>From:<%= card.send_user.nickname%> </p>
+  <% end %>
 
   
