@@ -1,2 +1,7 @@
-<h1>Cards#new</h1>
-<p>Find me in app/views/cards/new.html.erb</p>
+<h1>感謝の気持ちを伝えよう</h1>
+  <%# ユーザー選択するフォーム %>
+  <%=form_with model: @card,url: room_cards_path  ,local: true do |f|%>
+    <%= f.text_field :content,placeholder:"ありがとう＾＾"%>
+    <%= f.submit value="THANKS" %>
+  <% end %>
+
