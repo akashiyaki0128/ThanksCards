@@ -11,9 +11,9 @@ class CardsController < ApplicationController
     @room = Room.find(params[:room_id])
   end
   
-  # binding.pry
   def create
     @room = Room.find(params[:room_id])
+    # binding.pry
     @card = @room.cards.new(card_params)
     if @card.save
       redirect_to root_path
