@@ -21,12 +21,23 @@
    background-color: $secondary;
  }
 
- .login{
-   margin: 100px 0;
-   box-shadow: 0 0 10px rgba(0,0,0,.1);
+//  ログイン/新規登録のCSS
+.login{
+  margin: 100px 0;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+.page-heading{
+  text-align: center;
+  margin-bottom: 20px;
+}
+//  ログイン/新規登録のCSS
+
+
+ .main{
+   margin-top: 80px;
  }
 
- .page-heading{
-   text-align: center;
-   margin-bottom: 20px;
+ .main-heading{
+    font-size: 2em;
  }
