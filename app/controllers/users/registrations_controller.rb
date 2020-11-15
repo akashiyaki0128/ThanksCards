@@ -10,9 +10,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.new(sign_up_params)
+    unless @user.valid?
+      render :new and return
+    end
+   session["devise.regist_data"] = {user: @user.attributes}
+   session["devise.regist_data"][:user]["password"] = params[:user][:password]
+   @activity = @user.build_activity
+   render :new_activity
+  end
+
+  def create_activity
+    @user = User.new(session["devise.regist_data"]["user"])
+    @activity = Activity.new(activity_params)
+     unless @activity.valid?
+       render :new_activity and return
+     end
+    @user.build_activity(@activity.attributes)
+    @user.save
+    session["devise.regist_data"]["user"].clear
+    sign_in(:user, @user)
+    redirect_to root_path
+  end
+ 
+  private
+ 
+  def activity_params
+    params.require(:activity).permit(:postal_code, :address)
+  end
 
   # GET /resource/edit
   # def edit

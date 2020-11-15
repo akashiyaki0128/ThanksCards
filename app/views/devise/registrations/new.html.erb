@@ -32,12 +32,12 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "新規登録",class: "btn btn-warning btn-lg w-100 mb-4" %>
+          <%= f.submit "もっと教えて",class: "btn btn-warning btn-lg w-100 mb-4" %>
         </div>
         <% end %>
 
         <%- if controller_name != 'sessions' %>
-        <%= link_to "もっと教えて", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
+        <%= link_to "ログインページへ", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
         <% end %>
         
       </div>

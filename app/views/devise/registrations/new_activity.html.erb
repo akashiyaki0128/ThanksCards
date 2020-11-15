@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+     <div class="col-md-8 offset-md-2">
+      <div class="card login p-5">
+        <h1 class="page-heading">ThanksCards</h1>
+        <h2 class="page-heading">Sign up</h2>
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+1,ルーティング　devise_scopeはカスタマイズする際に使用するメソッド。今回はactivityモデルを使用する際に必要なので、記述
+2,activity用のフォーム画面作成　コントローラーrenderとhtmlのファイル名は紐づくので、new_activityと記名、フォーム文のモデルは対応する@activityにする
+3,@user = User.new(sign_up_params)で入力したparamsを@userに代入
+4,unless @user.valid?で保存が不可の場合の遷移設定 render :new and return
+5,{user: @user.attributes}はattributesでparamsの情報をコンパクトに纏める
+6,session["devise.regist_data"] を保存先にする。sessionは複数回リクエストがある際に使われる短期保存用のメソッド
+7,session["devise.regist_data"] = {user: @user.attributes}で@userの情報を代入を代入
+8, session["devise.regist_data"][:user]["password"] = params[:user][:password]でパスワードを追加代入。パスワードは暗号化され@userのデータにパスワードはなくなるので、指定代入が必要
+9,@activity = @user.build_activityは@user.activity.buildまたは@user.activity.new(user_id: @user.id)と同義。activityのインスタンスを生成する。buildメソッドはhas_oneで繋がった要素を紐付けながらインスタンスを生成できる
+10,render :new_activity　作成したactivityのフォームページへ
+11,activityのcreateメソッドを定義
+12,@user = User.new(session["devise.regist_data"]["user"])で保存したuserデータを@userに代入
+13,ストロングパラメーターを作成し、@activity = activity.new(activity_params)で入力した情報を@activityに入れる
+14,unless @activity.valid?で保存不可の場合の遷移設定、render :new_activity and return
+15,@user.build_activity(@activity.attributes)で入力した情報をコンパクトに纏めたデータを@userに追加。
+16,@user.saveで保存
+17,この段階ではログイン状態にならず、遷移先も設定されていないので、　sign_in(:user, @user)でログインし、redirect_to root_pathでメインページへ
