@@ -5,7 +5,7 @@
         <h1 class="page-heading">ThanksCards</h1>
         <h2 class="page-heading">Sign up</h2>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= form_for(@user, url: user_registration_path) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field">
@@ -37,7 +37,7 @@
         <% end %>
 
         <%- if controller_name != 'sessions' %>
-        <%= link_to "Log in", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
+        <%= link_to "もっと教えて", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
         <% end %>
         
       </div>
