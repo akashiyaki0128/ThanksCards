@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   root to: "cards#index" 
   
   resources :users, only: :show 
-
-  resources :rooms, only: [:create,:show] do
-    resources :cards, only: [:index,:new,:create]
-  end
+  resources :cards, only: [:index,:new,:create]
   
 end

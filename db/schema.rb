@@ -10,33 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_105220) do
+ActiveRecord::Schema.define(version: 2020_11_15_032712) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "send_user_id"
     t.bigint "receive_user_id"
-    t.bigint "room_id"
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["receive_user_id"], name: "index_cards_on_receive_user_id"
-    t.index ["room_id"], name: "index_cards_on_room_id"
     t.index ["send_user_id"], name: "index_cards_on_send_user_id"
   end
 
-  create_table "entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "receive_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "room_id"
+    t.bigint "card_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["room_id"], name: "index_entries_on_room_id"
-    t.index ["user_id"], name: "index_entries_on_user_id"
+    t.index ["card_id"], name: "index_receive_cards_on_card_id"
+    t.index ["user_id"], name: "index_receive_cards_on_user_id"
   end
 
-  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "send_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "card_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_send_cards_on_card_id"
+    t.index ["user_id"], name: "index_send_cards_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -52,9 +53,10 @@ ActiveRecord::Schema.define(version: 2020_11_07_105220) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "cards", "rooms"
   add_foreign_key "cards", "users", column: "receive_user_id"
   add_foreign_key "cards", "users", column: "send_user_id"
-  add_foreign_key "entries", "rooms"
-  add_foreign_key "entries", "users"
+  add_foreign_key "receive_cards", "cards"
+  add_foreign_key "receive_cards", "users"
+  add_foreign_key "send_cards", "cards"
+  add_foreign_key "send_cards", "users"
 end

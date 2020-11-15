@@ -9,7 +9,8 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <% if user_signed_in? %>
-                <li class="nav-item mx-0 mx-lg-1"><%= link_to "マイページ", user_path(current_user), class: "user-nickname",class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+                <li class="nav-item mx-0 mx-lg-1"><%= link_to "ありがとうカードを贈ろう", new_card_path, class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+                <li class="nav-item mx-0 mx-lg-1"><%= link_to "マイページ", user_path(current_user),class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
                 <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%> </li>
               <% else %>
                 <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログイン', new_user_session_path,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
@@ -30,22 +31,7 @@
       <div class="col-lg-3">
 
         <h1 class="my-4">Send a Card</h1>
-        <%# ユーザー選択するフォーム %>
-          <div class="form-wrapper">
-           <%=form_with model: @room, local: true do |f|%>
-              
-            <select class="form-control",name="room[user_ids][]">
-              <option value="">送る相手を選んでください</option>
-              <% User.where.not(id: current_user.id).each do |user|%>
-              <option value=<%= user.id%>><%= user.nickname%></option>
-              <% end %>
-            </select>
-            <input name="room[user_ids][]" type="hidden" value=<%= current_user.id%>>
-
-            <%= f.text_field :name, placeholder: 'あだ名で書いてみよう！！',value: current_user.nickname,type: "hidden" %>
-            <%= f.submit value="カード作成ページへ",class: "btn btn-info w-70 mt-2 mb-4 " %>
-          <% end %>
-          </div>
+        
         <%# ユーザー名と詳細ページへの遷移、ランダムに３人%>
         <div class="list-group">
           <% @users.where.not(id: current_user.id).shuffle.first(3).each do |user| %>
