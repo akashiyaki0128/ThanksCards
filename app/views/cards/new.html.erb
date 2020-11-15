@@ -1,3 +1,14 @@
 <h1>感謝の気持ちを伝えよう</h1>
 
+<%# ユーザー選択する/content送信フォーム %>
+  <div class="form-wrapper">
+    <%=form_with model: @card,url: cards_path, local: true do |f|%>
+
+     <%= f.collection_select(:receive_user_id,User.where.not(id: current_user.id),:id,:nickname,{ include_blank: "選んで"},required: true)%>
+
+
+    <%= f.text_field :content,placeholder:"ありがとう＾＾"%>
+    <%= f.submit value="send" %>
+  <% end %>
+  </div>
 
