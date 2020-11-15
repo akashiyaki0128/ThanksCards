@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :room do
+  factory :receive_card do
     
   end
 end
