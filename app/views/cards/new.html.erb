@@ -7,7 +7,7 @@
      <%= f.collection_select(:receive_user_id,User.where.not(id: current_user.id),:id,:nickname,{ include_blank: "選んで"},required: true)%>
 
 
-    <%= f.text_field :content,placeholder:"ありがとう＾＾"%>
+    <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300"%>
     <%= f.submit value="send" %>
   <% end %>
   </div>

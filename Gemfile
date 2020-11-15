@@ -65,3 +65,5 @@ gem "gimei"
 
 gem 'bootstrap', '~> 4.5.3'
 gem 'jquery-rails'
+
+gem "active_hash"

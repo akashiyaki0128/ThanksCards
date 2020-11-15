@@ -24,20 +24,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create_activity
     @user = User.new(session["devise.regist_data"]["user"])
     @activity = Activity.new(activity_params)
-     unless @activity.valid?
-       render :new_activity and return
-     end
+    unless @activity.valid?
+      render :new_activity and return
+    end
     @user.build_activity(@activity.attributes)
     @user.save
     session["devise.regist_data"]["user"].clear
     sign_in(:user, @user)
     redirect_to root_path
   end
+  # binding.pry
  
   private
  
   def activity_params
-    params.require(:activity).permit(:postal_code, :address)
+    params.require(:activity).permit(:depertment_id,:philosophy_id,:hobby,:good_thing)
   end
 
   # GET /resource/edit
