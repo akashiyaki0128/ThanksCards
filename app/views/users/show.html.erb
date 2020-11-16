@@ -57,21 +57,28 @@
     <!-- /.col-lg-6 -->
 
     <%# 現状余白 %>
-    <div class="col-2">
+    <div class="col-1">
     </div>
     <!-- /.col-lg-2 -->
 
 
     <%# 詳細ページからでもカードを贈れるor編集、カードをもっと見るページ %>
-    <div class="col-4">
+    <div class="col-5">
         <div class="form-wrapper">
           <%=form_with model: @card,url: cards_path, local: true do |f|%>
-            <input name="card[receive_user_id]"  value = <%=@user.id%> />
-            <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300"%>
-            <%= f.submit value="send" %>
+            <div class="field">
+              <%= f.label :content,"#{@user.nickname}さんへのメッセージ" %><br />
+              <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300",class: "form-control mb-3"%>
+            </div>
+            <input name="card[receive_user_id]" type="hidden" value = <%=@user.id%> />
+            <div>
+              <%= f.submit "カードを贈る",class: "btn btn-info btn-lg w-100 mb-4" %>
+            </div>
           <% end %>
         </div>
     </div>
+    
+    
     <!-- /.col-lg-4 -->
 
   </div>

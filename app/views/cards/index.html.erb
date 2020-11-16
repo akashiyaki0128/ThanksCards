@@ -22,16 +22,11 @@
 </nav>
 
 
-
-  <!-- Page Content -->
   <div class="container main">
-
     <div class="row">
 
       <div class="col-lg-3">
-
         <h1 class="my-4">カードを<br>贈ってみよう</h1>
-        
         <%# ユーザー名と詳細ページへの遷移、ランダムに３人%>
         <div class="list-group">
           <% @users.where.not(id: current_user.id).shuffle.first(3).each do |user| %>
@@ -42,7 +37,6 @@
           <% end %>
           <% end %>
         </div>
-
       </div>
       <!-- /.col-lg-3 -->
 
@@ -58,10 +52,10 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="https://i.picsum.photos/id/962/900/350.jpg?hmac=VU-HEYxLXZf_xAW6Int4368Ppg0alKuPMey_0h2DWFw" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="https://picsum.photos/900/350" alt="Second slide">
             </div>
             <div class="carousel-item">
               <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
@@ -80,12 +74,12 @@
         <%# ありがとうカードの表示 %>
         <div class="row">
           <% @cards.first(6).each do |card|%>
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card h-100">
                 <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">To:<%= card.receive_user.nickname%></a>
+                    To:<%= card.receive_user.nickname%>
                   </h4>
                   <p class="card-text"><%= card.content%></p>
                   <h5>From:<%= card.send_user.nickname%></h5>
@@ -108,13 +102,13 @@
   </div>
   <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; arigatou products</p>
-    </div>
-    <!-- /.container -->
-  </footer>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; arigatou products</p>
+  </div>
+  <!-- /.container -->
+</footer>
 
 
 

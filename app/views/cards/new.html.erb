@@ -1,14 +1,48 @@
-<h1>感謝の気持ちを伝えよう</h1>
-
-<%# ユーザー選択する/content送信フォーム %>
-  <div class="form-wrapper">
-    <%=form_with model: @card,url: cards_path, local: true do |f|%>
-
-     <%= f.collection_select(:receive_user_id,User.where.not(id: current_user.id),:id,:nickname,{ include_blank: "選んで"},required: true)%>
-
-
-    <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300"%>
-    <%= f.submit value="send" %>
-  <% end %>
+<nav class="navbar navbar-expand-lg bg-warning text-uppercase fixed-top" id="mainNav">
+  <div class="container">
+    <%= link_to "ThanksCards", root_path ,class: "main-heading navbar-brand text-uppercase font-weight-bold text-dark"%>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-info text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        メニュー
+        <%# Fontawesomeの記述 %>
+        <i class="fas fa-bars"></i> 
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to "ありがとうカードを贈ろう", new_card_path, class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to "#{current_user.nickname}さんのページ", user_path(current_user),class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%> </li>
+          <% else %>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログイン', new_user_session_path,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to '新規登録',new_user_registration_path ,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
+          <% end %>
+        </ul>
+    </div>
   </div>
+</nav>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card send p-5">
+        <h1 class="page-heading">感謝の気持ちを伝えよう</h1>
+
+          <%=form_with model: @card,url: cards_path, local: true do |f|%>
+            <div class="field">
+              <%= f.label :receive_user_id,"贈りたい相手選んでね" %><br />
+              <%= f.collection_select(:receive_user_id,User.where.not(id: current_user.id),:id,:nickname,{ include_blank: ""},required: true,class: "form-control mb-3")%>
+            </div>
+
+            <div class="field">
+              <%= f.label :content,"メッセージ" %><br />
+              <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300",class: "form-control mb-3"%>
+            </div>
+
+            <div>
+              <%= f.submit "カードを贈る",class: "btn btn-info btn-lg w-100 mb-4" %>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
