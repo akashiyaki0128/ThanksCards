@@ -8,4 +8,6 @@ class User < ApplicationRecord
 
          has_many :cards
          has_one :activity
+         has_many :receive_cards
+         has_many :send_cards
 end
