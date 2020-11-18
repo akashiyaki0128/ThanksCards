@@ -1,2 +1,60 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+
+<div class="container">
+  <div class="row">
+     <div class="col-md-8 offset-md-2">
+      <div class="card edit p-5">
+        <h1 class="page-heading">ThanksCards</h1>
+        <h2 class="page-heading">編集ページ</h2>
+
+        <%= form_with  model: @user, url: user_path do |f| %>
+
+          <div class="field">
+            <%= f.label :image,"画像・サムネイル" %><br />
+            <%= f.file_field :image, class: "form-control-file mb-3" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :nickname ,"ニックネーム・名前"%><br />
+            <%= f.text_field :nickname, autofocus: true, autocomplete: "nickname",class: "form-control mb-3" %>
+          </div>
+
+          <%# activityモデルのフォーム %>
+          <%= fields_for @user.activity do |activity_f| %>
+            <div class="field">
+              <%= activity_f.label :depertment_id,"所属部署" %><br />
+              <%= activity_f.collection_select(:depertment_id, Depertment.all , :id, :name, {}, class: "form-control mb-3") %>
+            </div>
+
+            <div class="field">
+              <%= activity_f.label :philosophy_id ,"好きな企業理念"%><br />
+              <%= activity_f.collection_select(:philosophy_id, Philosophy.all , :id, :name, {}, class: "form-control mb-3") %>
+            </div>
+            
+            <div class="field">
+              <%= activity_f.label :hobby,"趣味・好きなもの" %><br />
+              <%= activity_f.text_field :hobby, class: "form-control mb-3" %>
+            </div>
+
+            <div class="field">
+              <%= activity_f.label :good_thing,"最近あった良かったこと" %><br />
+              <%= activity_f.text_area :good_thing,class: "form-control mb-3",placeholder: "どんな事がありましたか？" %>
+            </div>
+          <% end %>
+          <%# activityモデルのフォーム %>
+
+            <div class="actions">
+              <%= f.submit "保存",class: "btn btn-info btn-lg w-100 mb-4" %>
+            </div>
+        <% end %>
+        <div class="row">
+          <div class="col">
+            <%= link_to "メインページへ", root_path,class: "btn btn-warning btn-md w-100 mb-4"%>
+          </div>
+          <div class="col">
+            <%= link_to "#{current_user.nickname}さんのページへ", user_path(current_user),class: "btn btn-success btn-md w-100 mb-4"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

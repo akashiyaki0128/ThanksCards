@@ -9,5 +9,4 @@ class Activity < ApplicationRecord
   validates  :depertment_id, numericality: { other_than: 1 } 
   validates  :philosophy_id, numericality: { other_than: 1 }
   validates :hobby,presence: true
-
 end
