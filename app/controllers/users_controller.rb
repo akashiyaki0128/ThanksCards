@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @activity = Activity.find(params[:id])
-    # binding.pry
   end
   
   def update
