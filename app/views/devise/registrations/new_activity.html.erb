@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+     <div class="col-md-8 offset-md-2">
+      <div class="card login p-5">
+        <h1 class="page-heading">ThanksCards</h1>
+        <h2 class="page-heading">新規登録</h2>
+
+        <%= form_for @activity do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field">
+          <%= f.label :depertment_id,"所属部署" %><br />
+          <%= f.collection_select(:depertment_id, Depertment.all , :id, :name, {}, class: "form-control mb-3") %>
+        </div>
+
+        <div class="field">
+          <%= f.label :philosophy_id ,"好きな企業理念"%><br />
+          <%= f.collection_select(:philosophy_id, Philosophy.all , :id, :name, {}, class: "form-control mb-3") %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :hobby,"趣味・好きなもの" %><br />
+          <%= f.text_field :hobby, class: "form-control mb-3" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :good_thing,"最近あった良かったこと" %><br />
+          <%= f.text_area :good_thing,class: "form-control mb-3",placeholder: "※空でも可、後から編集ページで記入できます" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "新規登録",class: "btn btn-warning btn-lg w-100 mb-4" %>
+        </div>
+        <% end %>
+
+        <%- if controller_name != 'sessions' %>
+        <%= link_to "ログインページへ", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
+        <% end %>
+        
+      </div>
+    </div>
+  </div>
+</div>

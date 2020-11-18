@@ -12,8 +12,8 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(card_params)
     if @card.valid?
-      @card.save
       # binding.pry
+      @card.save
       SendCard.create(user_id: @card.send_user_id,card_id: @card.id)
       ReceiveCard.create(user_id: @card.receive_user_id,card_id: @card.id)
       redirect_to root_path

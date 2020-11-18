@@ -3,41 +3,41 @@
      <div class="col-md-8 offset-md-2">
       <div class="card login p-5">
         <h1 class="page-heading">ThanksCards</h1>
-        <h2 class="page-heading">Sign up</h2>
+        <h2 class="page-heading">新規登録</h2>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= form_for(@user, url: user_registration_path) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
         <div class="field">
-          <%= f.label :nickname %><br />
+          <%= f.label :nickname ,"ニックネーム・名前"%><br />
           <%= f.text_field :nickname, autofocus: true, autocomplete: "nickname",class: "form-control mb-3" %>
         </div>
 
         <div class="field">
-          <%= f.label :email %><br />
+          <%= f.label :email ,"メールアドレス"%><br />
           <%= f.email_field :email, autocomplete: "email",class: "form-control mb-3" %>
         </div>
 
         <div class="field">
-          <%= f.label :password %>
+          <%= f.label :password ,"パスワード"%>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <em>(<%= @minimum_password_length %> 文字以上)</em>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "new-password",class: "form-control mb-3" %>
         </div>
 
         <div class="field">
-          <%= f.label :password_confirmation %><br />
+          <%= f.label :password_confirmation ,"もう一度パスワード入力お願いします"%><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control mb-3" %>
         </div>
 
         <div class="actions">
-          <%= f.submit "新規登録",class: "btn btn-warning btn-lg w-100 mb-4" %>
+          <%= f.submit "もっと教えて",class: "btn btn-warning btn-lg w-100 mb-4" %>
         </div>
         <% end %>
 
         <%- if controller_name != 'sessions' %>
-        <%= link_to "Log in", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
+        <%= link_to "ログインページへ", new_session_path(resource_name),class: "btn btn-info w-30" %><br />
         <% end %>
         
       </div>

@@ -1,48 +1,42 @@
 <nav class="navbar navbar-expand-lg bg-warning text-uppercase fixed-top" id="mainNav">
-    <div class="container">
-      <%= link_to "ThanksCards", root_path ,class: "main-heading navbar-brand text-uppercase font-weight-bold text-dark"%>
-        <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-info text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            メニュー
-            <%# Fontawesomeの記述 %>
-            <i class="fas fa-bars"></i> 
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <% if user_signed_in? %>
-                <li class="nav-item mx-0 mx-lg-1"><%= link_to "ありがとうカードを贈ろう", new_card_path, class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
-                <li class="nav-item mx-0 mx-lg-1"><%= link_to "マイページ", user_path(current_user),class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
-                <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%> </li>
-              <% else %>
-                <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログイン', new_user_session_path,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
-                <li class="nav-item mx-0 mx-lg-1"><%= link_to '新規登録',new_user_registration_path ,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
-              <% end %>
-            </ul>
-        </div>
+  <div class="container">
+    <%= link_to "ThanksCards", root_path ,class: "main-heading navbar-brand text-uppercase font-weight-bold text-dark"%>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-info text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        メニュー
+        <%# Fontawesomeの記述 %>
+        <i class="fas fa-bars"></i> 
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to "ありがとうカードを贈ろう", new_card_path, class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to "#{current_user.nickname}さんのページ", user_path(current_user),class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%> </li>
+          <% else %>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログイン', new_user_session_path,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to '新規登録',new_user_registration_path ,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
+          <% end %>
+        </ul>
     </div>
+  </div>
 </nav>
 
 
-
-  <!-- Page Content -->
   <div class="container main">
-
     <div class="row">
 
       <div class="col-lg-3">
-
-        <h1 class="my-4">Send a Card</h1>
-        
+        <h1 class="my-4">カードを<br>贈ってみよう</h1>
         <%# ユーザー名と詳細ページへの遷移、ランダムに３人%>
         <div class="list-group">
           <% @users.where.not(id: current_user.id).shuffle.first(3).each do |user| %>
-          <%= link_to user_path(user) do%>
-          <div class="list-group-item ">
-          <%= user.nickname%>
-          </div>
-          <% end %>
+            <%= link_to user_path(user) do%>
+              <div class="list-group-item ">
+                <%= user.nickname%>
+              </div>
+            <% end %>
           <% end %>
         </div>
-
       </div>
       <!-- /.col-lg-3 -->
 
@@ -58,10 +52,10 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="https://i.picsum.photos/id/962/900/350.jpg?hmac=VU-HEYxLXZf_xAW6Int4368Ppg0alKuPMey_0h2DWFw" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="https://picsum.photos/900/350" alt="Second slide">
             </div>
             <div class="carousel-item">
               <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
@@ -80,15 +74,23 @@
         <%# ありがとうカードの表示 %>
         <div class="row">
           <% @cards.first(6).each do |card|%>
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <% if card.receive_user.image %>
+                  <%= image_tag card.receive_user.image.variant(resize: "350x200"), class: "img-thumbnail card-img-top" if card.receive_user.image.attached?%>
+                <% end %>
                 <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">To:<%= card.receive_user.nickname%></a>
-                  </h4>
-                  <p class="card-text"><%= card.content%></p>
-                  <h5>From:<%= card.send_user.nickname%></h5>
+                  <%= link_to user_path(card.receive_user) do%>
+                    <div class="receive-user-name">
+                      To:<%= card.receive_user.nickname%>
+                    </div>
+                  <% end %>
+                  <h5 class="card-text"><%= card.content%></h5>
+                  <%= link_to user_path(card.send_user) do%>
+                    <div class="send-user-name">
+                      <small> From:<%= card.send_user.nickname%> </small>
+                    </div>
+                  <% end %>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">&#9733;ほっこり</small>
@@ -108,21 +110,18 @@
   </div>
   <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; arigatou products</p>
-    </div>
-    <!-- /.container -->
-  </footer>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; arigatou products</p>
+  </div>
+  <!-- /.container -->
+</footer>
 
 
 
 
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 
 

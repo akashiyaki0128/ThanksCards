@@ -1,6 +1,191 @@
-<h1>ユーザー詳細</h1>
+<nav class="navbar navbar-expand-lg bg-warning text-uppercase fixed-top" id="mainNav">
+  <div class="container">
+    <%= link_to "ThanksCards", root_path ,class: "main-heading navbar-brand text-uppercase font-weight-bold text-dark"%>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-info text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        メニュー
+        <%# Fontawesomeの記述 %>
+        <i class="fas fa-bars"></i> 
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to "ありがとうカードを贈ろう", new_card_path, class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to "#{current_user.nickname}さんのページ", user_path(current_user),class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%></li> 
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger font-weight-bold text-dark"%> </li>
+          <% else %>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to 'ログイン', new_user_session_path,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
+            <li class="nav-item mx-0 mx-lg-1"><%= link_to '新規登録',new_user_registration_path ,class: "nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" %></li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+</nav>
+<!-- /.nav -->
 
-<h2><%= @user.nickname %></h2>
-  <%= link_to "Send a thank you card" %>
 
-<%= link_to "メインページ", root_path%>
+<div class="container main">
+  <div class="row">
+    <div class="col-6">
+      <%# 画像添付予定 %>
+      <div class="image-field">
+        <% if @user.image %>
+          <%= image_tag @user.image.variant(resize: "350x200"), class: "img-thumbnail" if @user.image.attached?%>
+        <% end %>
+      </div>
+      <table class="table table-bordered table-active">
+        <tbody>
+          <tr>
+            <th scope="col">ニックネーム・名前</th>
+            <td><%= @user.nickname %></td>
+          </tr>
+          <tr>
+            <th scope="row">所属部署</th>
+            <td><%= @user.activity.depertment.name%></td>
+          </tr>
+          <tr>
+            <th scope="row">好きな企業理念</th>
+            <td><%= @user.activity.philosophy.name%></td>
+          </tr>
+          <tr>
+            <th scope="row">趣味・好きなもの</th>
+            <td><%= @user.activity.hobby%></td>
+          </tr>
+          <% if @user.activity.good_thing%>
+            <tr>
+              <th scope="row">最近あった良かったこと</th>
+              <td><%= @user.activity.good_thing%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- /.col-lg-6 -->
+
+    <%# 現状余白 %>
+    <div class="col-1">
+    </div>
+    <!-- /.col-lg-2 -->
+
+
+    <%# 詳細ページからでもカードを贈れるor編集、カードをもっと見るページ %>
+    <div class="col-5">
+    <% if user_signed_in? && current_user.id == @user.id %>
+      <%= link_to '編集ページへ', edit_user_path , method: :get, class: "btn btn-dark" %>
+    <%else%>
+        <div class="form-wrapper">
+          <%=form_with model: @card,url: cards_path, local: true do |f|%>
+            <div class="field">
+              <%= f.label :content,"#{@user.nickname}さんへのメッセージ" %><br />
+              <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300",class: "form-control mb-3"%>
+            </div>
+            <input name="card[receive_user_id]" type="hidden" value = <%=@user.id%> />
+            <div>
+              <%= f.submit "カードを贈る",class: "btn btn-info btn-lg w-100 mb-4" %>
+            </div>
+          <% end %>
+        </div>
+    <% end %>
+    </div>
+    
+    <!-- /.col-lg-4 -->
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /上部 ユーザー情報/余白/送信フォーム -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+    <h4>受け取ったカード</h4>
+      <div class="row row-cols-1 row-cols-xl-2">
+        <% @receive_cards.first(8).each do |receive_card|%>
+          <div class="col-xl-6 mb-4">
+
+            <div class="card h-100">
+              <% if receive_card.card.send_user.image %>
+                <%= image_tag receive_card.card.send_user.image.variant(resize: "350x200"), class: "img-thumbnail card-img-top" if receive_card.card.send_user.image.attached?%>
+              <% end %>
+              
+              <div class="card-body">
+                <%= link_to user_path(receive_card.card.send_user) do%>
+                  <div class="card-title">
+                    From:<%= receive_card.card.send_user.nickname%>
+                  </div>
+                <% end %>
+                <p class="card-text"><%= receive_card.card.content%></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733;ほっこり</small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <%= link_to "もっと見る", "#"%>
+    </div>
+
+    <div class="col-6">
+    <h4>贈ったカード</h4>
+      <div class="row row-cols-1 row-cols-xl-2">
+        <% @send_cards.first(8).each do |send_card|%>
+          <div class="col-xl-6 mb-4">
+            <div class="card h-100">
+              <% if send_card.card.receive_user.image %>
+                <%= image_tag send_card.card.receive_user.image.variant(resize: "350x200"), class: "img-thumbnail card-img-top" if send_card.card.receive_user.image.attached?%>
+              <% end %>
+              <div class="card-body">
+                <%= link_to user_path(send_card.card.receive_user) do%>
+                  <div class="card-title">
+                    To:<%= send_card.card.receive_user.nickname%>
+                  </div>
+                <% end %>
+                <p class="card-text"><%= send_card.card.content%></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733;ほっこり</small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <%= link_to "もっと見る", "#"%>
+    </div>  
+
+  </div>
+</div>
+<!-- /下部 カード表示 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

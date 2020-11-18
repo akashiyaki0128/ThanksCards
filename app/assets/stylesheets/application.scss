@@ -34,10 +34,28 @@
 //  ログイン/新規登録のCSS
 
 
- .main{
-   margin-top: 80px;
- }
+// ありがとうカード送信フォームのCSS
+.send{
+  margin: 200px 0;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
 
- .main-heading{
-    font-size: 2em;
- }
+// ありがとうカード送信フォームのCSS
+
+// ユーザー編集ページのCSS
+.edit{
+  margin: 100px 0;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+// ユーザー編集ページのCSS
+
+
+
+.main{
+  margin-top: 120px;
+}
+
+.main-heading{
+  font-size: 2em;
+}
