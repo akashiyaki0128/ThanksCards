@@ -102,13 +102,18 @@
       <div class="row row-cols-1 row-cols-xl-2">
         <% @receive_cards.first(8).each do |receive_card|%>
           <div class="col-xl-6 mb-4">
+
             <div class="card h-100">
-              <%# 画像添付予定 %>
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <% if receive_card.card.send_user.image %>
+                <%= image_tag receive_card.card.send_user.image.variant(resize: "350x200"), class: "img-thumbnail card-img-top" if receive_card.card.send_user.image.attached?%>
+              <% end %>
+              
               <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">From:<%= receive_card.card.send_user.nickname%></a>
-                </h4>
+                <%= link_to user_path(receive_card.card.send_user) do%>
+                  <div class="card-title">
+                    From:<%= receive_card.card.send_user.nickname%>
+                  </div>
+                <% end %>
                 <p class="card-text"><%= receive_card.card.content%></p>
               </div>
               <div class="card-footer">
@@ -127,12 +132,15 @@
         <% @send_cards.first(8).each do |send_card|%>
           <div class="col-xl-6 mb-4">
             <div class="card h-100">
-              <%# 画像添付予定 %>
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <% if send_card.card.receive_user.image %>
+                <%= image_tag send_card.card.receive_user.image.variant(resize: "350x200"), class: "img-thumbnail card-img-top" if send_card.card.receive_user.image.attached?%>
+              <% end %>
               <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">To:<%= send_card.card.receive_user.nickname%></a>
-                </h4>
+                <%= link_to user_path(send_card.card.receive_user) do%>
+                  <div class="card-title">
+                    To:<%= send_card.card.receive_user.nickname%>
+                  </div>
+                <% end %>
                 <p class="card-text"><%= send_card.card.content%></p>
               </div>
               <div class="card-footer">

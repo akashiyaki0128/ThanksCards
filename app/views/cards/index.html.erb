@@ -30,11 +30,11 @@
         <%# ユーザー名と詳細ページへの遷移、ランダムに３人%>
         <div class="list-group">
           <% @users.where.not(id: current_user.id).shuffle.first(3).each do |user| %>
-          <%= link_to user_path(user) do%>
-          <div class="list-group-item ">
-          <%= user.nickname%>
-          </div>
-          <% end %>
+            <%= link_to user_path(user) do%>
+              <div class="list-group-item ">
+                <%= user.nickname%>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -76,13 +76,21 @@
           <% @cards.first(6).each do |card|%>
             <div class="col-xl-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <% if card.receive_user.image %>
+                  <%= image_tag card.receive_user.image.variant(resize: "350x200"), class: "img-thumbnail card-img-top" if card.receive_user.image.attached?%>
+                <% end %>
                 <div class="card-body">
-                  <h4 class="card-title">
-                    To:<%= card.receive_user.nickname%>
-                  </h4>
-                  <p class="card-text"><%= card.content%></p>
-                  <h5>From:<%= card.send_user.nickname%></h5>
+                  <%= link_to user_path(card.receive_user) do%>
+                    <div class="receive-user-name">
+                      To:<%= card.receive_user.nickname%>
+                    </div>
+                  <% end %>
+                  <h5 class="card-text"><%= card.content%></h5>
+                  <%= link_to user_path(card.send_user) do%>
+                    <div class="send-user-name">
+                      <small> From:<%= card.send_user.nickname%> </small>
+                    </div>
+                  <% end %>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">&#9733;ほっこり</small>

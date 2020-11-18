@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :ensure_current_user, only: :edit
   
   def show
     @user = User.find(params[:id])
@@ -25,12 +26,21 @@ class UsersController < ApplicationController
   
   end
 
+  private
+
   def user_params
     params.require(:user).permit(:nickname,:image)
   end
   
   def activity_params
     params.require(:activity).permit(:depertment_id,:philosophy_id,:hobby,:good_thing)
+  end
+
+  def ensure_current_user
+    @user = User.find(params[:id])
+    if current_user != @user
+      redirect_to root_path
+    end
   end
 
 end
