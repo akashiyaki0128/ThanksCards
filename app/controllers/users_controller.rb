@@ -20,8 +20,8 @@ class UsersController < ApplicationController
     
     @user.update(user_params)
     @activity.update(activity_params)
-    redirect_to root_path
     # binding.pry
+    redirect_to root_path
   
   end
 
