@@ -70,3 +70,5 @@ gem "active_hash"
 
 gem 'mini_magick'
 gem 'image_processing'
+
+gem "aws-sdk-s3", require: false
