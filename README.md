@@ -1,7 +1,6 @@
 # README
 
 
-
 ## アプリケーション名
 ### ***ThanksCards***
 
@@ -14,6 +13,9 @@
 
 #### コンセプト
 **ありがとうカードを送りたくなるようなアプリケーション**
+- 誰でも楽しめること（ゲーム性）
+- 送ることにメリットがあること（バリュー）
+- 送ることによるデメリットがないこと（操作性）
 
 ## 背景
 ありがとうカードの取組を紙ベースでやっている職場で複数箇所働いてきたが、
@@ -26,27 +28,31 @@
 動的な仕組みや流行のコンテンツを起用等、日々のアップデートが重要であることを念頭に置いておく。
 
 
-#### URL	デプロイ済みのURLを記述しましょう。デプロイが済んでいない場合は、デプロイ次第記述しましょう。
-#### テスト用アカウント	ログイン機能等を実装した場合は、記述しましょう。またBasic認証等を設けている場合は、そのID/Passも記述しましょう。
-#### 利用方法	このアプリケーションの利用方法を説明しましょう。
-#### 目指した課題解決	このアプリケーションを通じて、どのような人の、どのような課題を解決したかったかを書きましょう。
-#### 洗い出した要件	スプレッドシートにまとめた要件定義を、マークダウンで記述しなおしましょう。
-#### 実装した機能についてのGIFと説明	実装した機能について、それぞれどのような特徴があるのか列挙しましょう。GIFを添えることで、イメージがしやすくなります。
-#### 実装予定の機能	洗い出した要件の中から、今後実装予定のものがあれば記述しましょう。
-#### データベース設計	ER図等を添付しましょう。
-#### ローカルでの動作方法	git cloneしてから、ローカルで動作をさせるまでに必要なコマンドを記述しましょう。この時、アプリケーション開発に使用した環境を併記することを忘れないでください（パッケージやRubyのバージョンなど）。
+#### URL	
+http://52.14.73.99/
+
+#### テスト用アカウント	 
+①email: kaba@rice,password: kaba555
+②email: cat@rice,password: cat555
+
+#### 利用方法	 
+新規登録orログイン→ありがとうカードを贈る→メインページとマイページに贈ったカードが反映される
+
+#### 目指した課題解決、誰のどんな問題を解決するか	
+１，自分のありがとうカードを見返したい時のための保存先が欲しかった。
+２，社風・企業文化として感謝の気持ち・言葉を根付かせたい企業の企業文化の浸透に貢献する
+
+### ER図
+https://gyazo.com/a817e095b2609a6e55f32c0874819d51
 
 ### CSS
 bootstrapを使用
 
 
 
-
-
-
 ## users テーブル
 
-Things you may want to cover:
+
 | Column   | Type   | Options     |
 | -------- | ------ | ----------- |
 | name     | string | null: false |
@@ -55,43 +61,59 @@ Things you may want to cover:
 
 ### Association
 
-- has_many :entries
-- has_many :rooms, through: entries
 - has_many :cards
+- has_one :activity , dependent: :destroy
+- has_many :receive_cards
+- has_many :send_cards
+- has_one_attached :image
 
-## rooms テーブル
+## activities テーブル
 
-| Column | Type   | Options     |
-| ------ | ------ | ----------- |
-| name   | string | null: false |
-
+| Column        | Type       | Options | 
+| ------------- | ---------- | ------- | 
+| depertment_id | integer    |         | 
+| philosophy_id | integer    |         | 
+| hobby         | string     |         | 
+| good_thing    | string     |         | 
+| user          | references |         | 
 ### Association
 
-- has_many :entries
-- has_many :users, through: entries
-- has_many :cards
+- belongs_to :user,optional: true
+- belongs_to_active_hash :depertment
+- belongs_to_active_hash :philosophy
 
-## entries テーブル
+## send_cards テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
 | user   | references | null: false, foreign_key: true |
-| room   | references | null: false, foreign_key: true |
+| card   | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room
+- belongs_to :card
+- belongs_to :user
+
+## receive_cards テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| card   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :card
 - belongs_to :user
 
 ## cards テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| content | text       | null: false                    |
-| user    | references | null: false, foreign_key: true |
-| room    | references | null: false, foreign_key: true |
-
+| Column       | Type       | Options                        | 
+| ------------ | ---------- | ------------------------------ | 
+| content      | text       | null: false                    | 
+| send_user    | references | null: false, foreign_key: true | 
+| receive_user | references | null: false, foreign_key: true | 
 ### Association
 
-- belongs_to :room
-- belongs_to :user
+- belongs_to :send_user, class_name: "User"
+- belongs_to :receive_user,class_name: "User"
