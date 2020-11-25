@@ -46,7 +46,7 @@ bootstrapを使用
 
 ## users テーブル
 
-Things you may want to cover:
+
 | Column   | Type   | Options     |
 | -------- | ------ | ----------- |
 | name     | string | null: false |
@@ -55,43 +55,59 @@ Things you may want to cover:
 
 ### Association
 
-- has_many :entries
-- has_many :rooms, through: entries
 - has_many :cards
+- has_one :activity , dependent: :destroy
+- has_many :receive_cards
+- has_many :send_cards
+- has_one_attached :image
 
-## rooms テーブル
+## activities テーブル
 
-| Column | Type   | Options     |
-| ------ | ------ | ----------- |
-| name   | string | null: false |
-
+| Column        | Type       | Options | 
+| ------------- | ---------- | ------- | 
+| depertment_id | integer    |         | 
+| philosophy_id | integer    |         | 
+| hobby         | string     |         | 
+| good_thing    | string     |         | 
+| user          | references |         | 
 ### Association
 
-- has_many :entries
-- has_many :users, through: entries
-- has_many :cards
+- belongs_to :user,optional: true
+- belongs_to_active_hash :depertment
+- belongs_to_active_hash :philosophy
 
-## entries テーブル
+## send_cards テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
 | user   | references | null: false, foreign_key: true |
-| room   | references | null: false, foreign_key: true |
+| card   | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room
+- belongs_to :card
+- belongs_to :user
+
+## receive_cards テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| card   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :card
 - belongs_to :user
 
 ## cards テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| content | text       | null: false                    |
-| user    | references | null: false, foreign_key: true |
-| room    | references | null: false, foreign_key: true |
-
+| Column       | Type       | Options                        | 
+| ------------ | ---------- | ------------------------------ | 
+| content      | text       | null: false                    | 
+| send_user    | references | null: false, foreign_key: true | 
+| receive_user | references | null: false, foreign_key: true | 
 ### Association
 
-- belongs_to :room
-- belongs_to :user
+- belongs_to :send_user, class_name: "User"
+- belongs_to :receive_user,class_name: "User"
