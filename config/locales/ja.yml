@@ -1,0 +1,11 @@
+ja:
+ activerecord:
+   attributes:
+     user:
+       nickname: ニックネーム
+     card:
+       content: メッセージ
+     activity:
+        depertment_id: 所属部署
+        philosophy_id: 好きな企業理念
+        hobby: 趣味・好きなもの
