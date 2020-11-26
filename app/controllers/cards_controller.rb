@@ -1,4 +1,7 @@
 class CardsController < ApplicationController
+
+  before_action :ensure_current_user, only: [:edit,:update]
+
   def index
     @users =User.all       #order("created_at desc") 降順に切り替え用
     @cards = Card.includes(:receive_user,:send_user).order("created_at desc")
@@ -22,11 +25,11 @@ class CardsController < ApplicationController
   end
 
   def edit
-    @card = Card.find(params[:id])
+    # @card = Card.find(params[:id]) before_actionの為コメントアウト
   end
 
   def update
-    @card = Card.find(params[:id])
+    # @card = Card.find(params[:id]) before_actionの為コメントアウト
     if @card.update(card_params)
       redirect_to user_path(current_user)
     else
@@ -38,5 +41,12 @@ class CardsController < ApplicationController
 
   def card_params
     params.require(:card).permit(:content,:receive_user_id).merge(send_user_id: current_user.id)
+  end
+
+  def ensure_current_user
+    @card = Card.find(params[:id])
+    if current_user.id != @card.send_user_id
+      redirect_to root_path
+    end
   end
 end
