@@ -121,6 +121,9 @@
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733;ほっこり</small>
+                <% if user_signed_in? && current_user.id == send_card.user_id %>
+                  <%= link_to "編集",edit_card_path(send_card.card),class: "btn btn-outline-dark btn-sm float-right" %>
+                <% end %>
               </div>
             </div>
           </div>
