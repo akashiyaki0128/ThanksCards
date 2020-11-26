@@ -7,7 +7,7 @@ class Activity < ApplicationRecord
   belongs_to :user,optional: true 
   #外部キーがnilであることを許可する、ウィザード形式なので入力時は外部キーが無いため
 
-  validates  :depertment_id, numericality: { other_than: 1 ,message: 'を選択してください'} 
-  validates  :philosophy_id, numericality: { other_than: 1 ,message: 'を選択してください'}
+  validates  :depertment_id, numericality: { other_than: 1 ,message: 'must be selected'} 
+  validates  :philosophy_id, numericality: { other_than: 1 ,message: 'must be selected'}
   validates :hobby,presence: true
 end
