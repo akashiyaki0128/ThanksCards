@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   root to: "cards#index" 
   
   resources :users, only: [:show,:edit,:update]
-  resources :cards, only: [:index,:new,:create]
+  resources :cards, only: [:index,:new,:create,:edit,:update]
   
 end
