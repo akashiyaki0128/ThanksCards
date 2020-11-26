@@ -6,6 +6,12 @@
         <h1 class="page-heading">ThanksCards</h1>
           <h2 class="page-heading">ログイン</h2>
 
+          <%# ログイン時のエラーメッセージ  %>
+          <div class='login-flash-message text-danger'>
+            <%= flash[:notice] %>
+            <%= flash[:alert] %>
+          </div>
+
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="field">
               <%= f.label :email %><br />

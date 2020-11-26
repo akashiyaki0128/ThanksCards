@@ -7,7 +7,7 @@
         <h1 class="page-heading">感謝の気持ちを伝えよう</h1>
 
           <%=form_with model: @card,url: card_path, local: true do |f|%>
-
+            <%= render 'layouts/error_messages', model: @card %>
             <div class="field">
               <%= f.label :content,"メッセージ" %><br />
               <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300",class: "form-control mb-3"%>

@@ -6,7 +6,7 @@
         <h2 class="page-heading">新規登録</h2>
 
         <%= form_for @activity do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= render 'layouts/error_messages', model: @activity %>
 
         <div class="field">
           <%= f.label :depertment_id,"所属部署" %><br />
