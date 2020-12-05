@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+    <%= form_with(url: search_users_path, local: true, method: :get)do |form| %>
+      <%= form.text_field :keyword, placeholder: "仲間を探す"%>
+      <%= form.submit "検索"%>
+    <% end %>
+    </div>
+
+    <div class="col-8">
+    <% @users.each do |user|%>
+      <%= user.nickname %>
+    <% end %>
+    </div>
+  </div>
+</div>

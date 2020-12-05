@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   end
   root to: "cards#index" 
   
-  resources :users, only: [:show,:edit,:update]
+  resources :users, only: [:show,:edit,:update] do
+    collection do
+      get 'search'
+    end
+  end
   resources :cards, only: [:index,:new,:create,:edit,:update]
   
 end

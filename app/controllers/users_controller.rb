@@ -25,6 +25,10 @@ class UsersController < ApplicationController
   
   end
 
+  def search
+    @users = User.search(params[:keyword])
+  end
+  
   private
 
   def user_params
