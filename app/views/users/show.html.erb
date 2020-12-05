@@ -76,7 +76,7 @@
     <div class="col-6">
     <h4>受け取ったカード</h4>
       <div class="row row-cols-1 row-cols-xl-2">
-        <% @receive_cards.first(8).each do |receive_card|%>
+        <% @receive_cards.first(16).each do |receive_card|%>
           <div class="col-xl-6 mb-4">
 
             <div class="card h-100">
@@ -99,13 +99,13 @@
           </div>
         <% end %>
       </div>
-      <%= link_to "もっと見る", "#"%>
+      <%# <%= link_to "もっと見る", "#"%>
     </div>
 
     <div class="col-6">
     <h4>贈ったカード</h4>
       <div class="row row-cols-1 row-cols-xl-2">
-        <% @send_cards.first(8).each do |send_card|%>
+        <% @send_cards.first(16).each do |send_card|%>
           <div class="col-xl-6 mb-4">
             <div class="card h-100">
               <% if send_card.card.receive_user.image %>
@@ -129,7 +129,7 @@
           </div>
         <% end %>
       </div>
-      <%= link_to "もっと見る", "#"%>
+      <%# <%= link_to "もっと見る", "#"%>
     </div>  
 
   </div>
