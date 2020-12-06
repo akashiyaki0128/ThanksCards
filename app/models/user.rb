@@ -11,4 +11,14 @@ class User < ApplicationRecord
          has_many :receive_cards
          has_many :send_cards
          has_one_attached :image
+
+
+         def self.search(search)
+          if search != ""
+            User.where('nickname LIKE(?)', "%#{search}%")
+          else
+            User.all
+          end
+         end
+         
 end

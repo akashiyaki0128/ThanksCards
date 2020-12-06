@@ -6,10 +6,15 @@
     <div class="col-lg-3">
       <h1 class="my-4">カードを<br>贈ってみよう</h1>
       <%# ユーザー名と詳細ページへの遷移、ランダムに３人%>
-      <div class="list-group">
+      <%# 検索フォーム %>
+      <%= form_with(url: search_users_path, local: true, method: :get,class: "d-inline-block form-inline  my-2 mw-100") do |form| %>
+        <%= form.text_field :keyword, placeholder: "仲間を探す", class: "form-control bg-light mb-lg-2 mr-2" %>
+        <%= form.submit "検索", class: "btn btn-info" %>
+      <% end %>
+      <div class="list-group ">
         <% @users.where.not(id: current_user.id).shuffle.first(3).each do |user| %>
           <%= link_to user_path(user) do%>
-            <div class="list-group-item ">
+            <div class="list-group-item mb-1">
               <%= user.nickname%>
             </div>
           <% end %>
