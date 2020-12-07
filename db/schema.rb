@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_040955) do
+ActiveRecord::Schema.define(version: 2020_12_07_141557) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(version: 2020_11_17_040955) do
     t.index ["send_user_id"], name: "index_cards_on_send_user_id"
   end
 
+  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "card_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_likes_on_card_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "receive_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "card_id"
@@ -89,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_11_17_040955) do
   add_foreign_key "activities", "users"
   add_foreign_key "cards", "users", column: "receive_user_id"
   add_foreign_key "cards", "users", column: "send_user_id"
+  add_foreign_key "likes", "cards"
+  add_foreign_key "likes", "users"
   add_foreign_key "receive_cards", "cards"
   add_foreign_key "receive_cards", "users"
   add_foreign_key "send_cards", "cards"
