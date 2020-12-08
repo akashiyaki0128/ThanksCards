@@ -11,6 +11,7 @@ class User < ApplicationRecord
          has_many :receive_cards
          has_many :send_cards
          has_one_attached :image
+         has_many :likes
 
 
          def self.search(search)
