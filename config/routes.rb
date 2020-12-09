@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'likes/create'
-  get 'likes/destroy'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -16,6 +14,7 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
-  resources :cards, only: [:index,:new,:create,:edit,:update]
-  
+  resources :cards, only: [:index,:new,:create,:edit,:update] do
+    resources :likes, only: [:create,:destroy]
+  end
 end
