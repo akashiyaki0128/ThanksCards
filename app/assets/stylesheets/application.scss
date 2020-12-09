@@ -12,50 +12,52 @@
  *
  */
 
-
+ @import "font-awesome-sprockets"; 
+ @import "font-awesome";
  $secondary: rgb(248, 244, 18);
  $warning: rgb(231, 127, 58);
  @import "bootstrap";
  
  body{
    background-color: light;
- }
-
-//  ログイン/新規登録のCSS
-.login{
-  margin: 100px 0;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
-}
-
-.page-heading{
-  text-align: center;
-  margin-bottom: 20px;
-}
-//  ログイン/新規登録のCSS
-
-
-// ありがとうカード送信フォームのCSS
-.send{
-  margin: 200px 0;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
-}
-
-// ありがとうカード送信フォームのCSS
-
-// ユーザー編集ページのCSS
-.edit{
-  margin: 100px 0;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
-}
-
-// ユーザー編集ページのCSS
-
-
-
-.main{
-  margin-top: 120px;
-}
-
-.main-heading{
-  font-size: 2em;
-}
+  }
+  
+  //  ログイン/新規登録のCSS
+  .login{
+    margin: 100px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+  }
+  
+  .page-heading{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  //  ログイン/新規登録のCSS
+  
+  
+  // ありがとうカード送信フォームのCSS
+  .send{
+    margin: 200px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+  }
+  
+  // ありがとうカード送信フォームのCSS
+  
+  // ユーザー編集ページのCSS
+  .edit{
+    margin: 100px 0;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+  }
+  
+  // ユーザー編集ページのCSS
+  
+  
+  
+  .main{
+    margin-top: 120px;
+  }
+  
+  .main-heading{
+    font-size: 2em;
+  }
+  
