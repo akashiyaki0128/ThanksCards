@@ -11,7 +11,8 @@ class User < ApplicationRecord
          has_many :receive_cards
          has_many :send_cards
          has_one_attached :image
-         has_many :likes
+         has_many :likes, dependent: :destroy
+         has_many :like_cards, through: :likes,source: :card
 
 
          def self.search(search)
