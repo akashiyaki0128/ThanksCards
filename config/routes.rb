@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
   end
   resources :cards, only: [:index,:new,:create,:edit,:update] do
-    resources :likes, only: [:create,:destroy]
+    post 'like' => 'likes#create'
+    delete '/like' => 'likes#destroy'
   end
 end
