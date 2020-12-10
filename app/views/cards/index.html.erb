@@ -75,22 +75,22 @@
                   </div>
                 <% end %>
               </div>
+
+              <%# ほっこりボタン機能 %>
               <div class="card-footer">
-                <small class="text-muted">&#9733;ほっこり</small>
-
-                
                 <% if card.liked_by?(current_user)%>
-                イイね済み
+                  ほっこり
+                 <%= link_to  card_like_path(card), method: :delete  do%>
+                  <i class="fas fa-star"></i>
+                 <% end %>
                 <% else %>
-                イイねまだ
+                  ほっこり
+                  <%= link_to  card_like_path(card),method: :post do %>
+                    <i class="far fa-star"></i>
+                  <% end %>
                 <% end %>
-
-
-
-
-
-
               </div>
+
             </div>
           </div>
         <% end %>
