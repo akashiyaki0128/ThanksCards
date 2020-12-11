@@ -1,3 +1,4 @@
+if (document.URL.match( /edit/ )){
  function saveBtn(){
 
   const TellSaved = document.getElementById("save-btn")
@@ -8,4 +9,5 @@
   })
 }
 
-window.addEventListener('load', saveBtn)
+window.addEventListener('load', saveBtn);
+};

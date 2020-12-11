@@ -93,7 +93,7 @@
                 <p class="card-text"><%= receive_card.card.content%></p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">&#9733;ほっこり</small>
+                <%= render partial: "likes/like",locals: {card: receive_card.card}%>
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
                 <p class="card-text"><%= send_card.card.content%></p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">&#9733;ほっこり</small>
+                <%= render partial: "likes/like",locals: {card: send_card.card}%>
                 <% if user_signed_in? && current_user.id == send_card.user_id %>
                   <%= link_to "編集",edit_card_path(send_card.card),class: "btn btn-outline-dark btn-sm float-right" %>
                 <% end %>
