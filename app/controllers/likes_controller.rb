@@ -5,7 +5,7 @@ class LikesController < ApplicationController
     # binding.pry
     card = Card.find(params[:card_id])
     like = Like.create(user_id: current_user.id,card_id: card.id)
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
   
   def destroy
@@ -13,7 +13,7 @@ class LikesController < ApplicationController
     card = Card.find(params[:card_id])
     like = Like.find_by(user_id: current_user.id,card_id: card.id)
     like.delete
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 
   private

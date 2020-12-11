@@ -78,19 +78,10 @@
 
               <%# ほっこりボタン機能 %>
               <div class="card-footer">
-                <% if card.liked_by?(current_user)%>
-                  ほっこり
-                 <%= link_to  card_like_path(card), method: :delete  do%>
-                  <i class="fas fa-star"></i>
-                 <% end %>
-                <% else %>
-                  ほっこり
-                  <%= link_to  card_like_path(card),method: :post do %>
-                    <i class="far fa-star"></i>
-                  <% end %>
-                <% end %>
+                <div id="card_<%= card.id%>">
+                  <%= render partial: "likes/like",locals: {card: card}%>
+                </div>
               </div>
-
             </div>
           </div>
         <% end %>

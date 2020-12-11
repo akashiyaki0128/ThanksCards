@@ -1,0 +1,13 @@
+<%# ほっこりボタン機能 %>
+  <% if card.liked_by?(current_user)%>
+    ほっこり
+    <%= link_to  card_like_path(card), method: :delete  do%>
+    <i class="fas fa-star"></i>
+    <% end %>
+  <% else %>
+    ほっこり
+    <%= link_to  card_like_path(card),method: :post do %>
+      <i class="far fa-star"></i>
+    <% end %>
+  <% end %>
+  <%= Like.where(card_id: card.id).count%>
