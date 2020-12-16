@@ -3,7 +3,7 @@ module SignInSupport
     visit new_user_session_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    find('input[name="commit"]').click
+    click_on("ログイン")
     expect(current_path).to eq root_path
   end
 end
