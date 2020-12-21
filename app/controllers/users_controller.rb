@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
   before_action :ensure_current_user, only: :edit
+  before_action :guest_user_auth,only: :edit
   
   def show
     @user = User.find(params[:id])
     @card = Card.new
     @receive_cards = @user.receive_cards.includes(:user,:card).order("created_at desc")
     @send_cards = @user.send_cards.includes(:user,:card).order("created_at desc")
+    @guest_user = User.find_by(email:'guest@example.com')
   end
 
 
@@ -45,5 +47,13 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def guest_user_auth
+    @guest_user = User.find_by(email:'guest@example.com')
+    if current_user == @guest_user
+      redirect_to root_path
+    end
+  end
+  
 
 end

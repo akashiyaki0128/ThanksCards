@@ -3,38 +3,42 @@
 <div class="container main">
   <div class="row">
     <div class="col-6">
+      <% if @user == @guest_user%>
+        <h1 class="text-uppercase font-weight-bold text-dark">ゲストさんのページ</h1>
+      <% else %>
       <%# 画像添付予定 %>
-      <div class="image-field">
-        <% if @user.image %>
-          <%= image_tag @user.image.variant(resize: "350x200"), class: "img-thumbnail" if @user.image.attached?%>
-        <% end %>
-      </div>
-      <table class="table table-bordered table-active">
-        <tbody>
-          <tr>
-            <th scope="col">ニックネーム・名前</th>
-            <td><%= @user.nickname %></td>
-          </tr>
-          <tr>
-            <th scope="row">所属部署</th>
-            <td><%= @user.activity.depertment.name%></td>
-          </tr>
-          <tr>
-            <th scope="row">好きな企業理念</th>
-            <td><%= @user.activity.philosophy.name%></td>
-          </tr>
-          <tr>
-            <th scope="row">趣味・好きなもの</th>
-            <td><%= @user.activity.hobby%></td>
-          </tr>
-          <% if @user.activity.good_thing%>
-            <tr>
-              <th scope="row">最近あった良かったこと</th>
-              <td><%= @user.activity.good_thing%></td>
-            </tr>
+        <div class="image-field">
+          <% if @user.image %>
+            <%= image_tag @user.image.variant(resize: "350x200"), class: "img-thumbnail" if @user.image.attached?%>
           <% end %>
-        </tbody>
-      </table>
+        </div>
+        <table class="table table-bordered table-active">
+          <tbody>
+            <tr>
+              <th scope="col">ニックネーム・名前</th>
+              <td><%= @user.nickname %></td>
+            </tr>
+            <tr>
+              <th scope="row">所属部署</th>
+              <td><%= @user.activity.depertment.name%></td>
+            </tr>
+            <tr>
+              <th scope="row">好きな企業理念</th>
+              <td><%= @user.activity.philosophy.name%></td>
+            </tr>
+            <tr>
+              <th scope="row">趣味・好きなもの</th>
+              <td><%= @user.activity.hobby%></td>
+            </tr>
+            <% if @user.activity.good_thing%>
+              <tr>
+                <th scope="row">最近あった良かったこと</th>
+                <td><%= @user.activity.good_thing%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
     </div>
     <!-- /.col-lg-6 -->
 
@@ -45,21 +49,27 @@
 
     <%# 詳細ページからでもカードを贈れるor編集、カードをもっと見るページ %>
     <div class="col-5">
-    <% if user_signed_in? && current_user.id == @user.id %>
-      <%= link_to '編集ページへ', edit_user_path , method: :get, class: "btn btn-dark" %>
-    <%else%>
-        <div class="form-wrapper">
-          <%=form_with model: @card,url: cards_path, local: true do |f|%>
-            <div class="field">
-              <%= f.label :content,"#{@user.nickname}さんへのメッセージ" %><br />
-              <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300",class: "form-control mb-3"%>
-            </div>
-            <input name="card[receive_user_id]" type="hidden" value = <%=@user.id%> />
-            <div>
-              <%= f.submit "カードを贈る",class: "btn btn-info btn-lg w-100 mb-4" %>
-            </div>
-          <% end %>
-        </div>
+      <% if @user == @guest_user%>
+        <h3 class="text-uppercase font-weight-bold text-dark">受け取ったカード<br> 贈ったカードが閲覧できます</h3>
+      <% else %>
+
+      <% if user_signed_in? && current_user.id == @user.id %>
+        <%= link_to '編集ページへ', edit_user_path , method: :get, class: "btn btn-dark" %>
+      <%else%>
+          <div class="form-wrapper">
+            <%=form_with model: @card,url: cards_path, local: true do |f|%>
+              <div class="field">
+                <%= f.label :content,"#{@user.nickname}さんへのメッセージ" %><br />
+                <%= f.text_area :content,placeholder:"ありがとう＾＾",rows:"5" ,maxlength:"300",class: "form-control mb-3"%>
+              </div>
+              <input name="card[receive_user_id]" type="hidden" value = <%=@user.id%> />
+              <div>
+                <%= f.submit "カードを贈る",class: "btn btn-info btn-lg w-100 mb-4" %>
+              </div>
+            <% end %>
+          </div>
+      <% end %>
+
     <% end %>
     </div>
     
