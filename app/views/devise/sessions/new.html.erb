@@ -27,6 +27,10 @@
               <%= f.submit "ログイン",class: "btn btn-info btn-lg w-100 mb-4" %>
             </div>
           <% end %>
+
+            <div class="actions">
+              <%= link_to "かんたんログイン",guest_sign_in_path,method: :post,class: "btn btn-success btn-lg w-100 mb-4" %>
+            </div>
           
             <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
               <%= link_to "新規登録ページへ", new_registration_path(resource_name),class: "btn btn-warning" %><br />
